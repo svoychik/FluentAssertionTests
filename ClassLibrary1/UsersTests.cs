@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using NUnit.Framework;
 
 namespace ClassLibrary1
 {
     [TestFixture]
-    public class UnitTest1
+    public class UsersTests
     {
         [Test]
         public void CollectionEquals_HaveSameItemsInDifferentOrder()
         {
-            var expected = new[] { StatusWorker.Active, StatusWorker.Left, StatusWorker.Locked };
-            var actual = new[] { StatusWorker.Active, StatusWorker.Locked, StatusWorker.Left };
+            var expected = new[] { UserStatus.Active, UserStatus.Left, UserStatus.Locked };
+            var actual = new[] { UserStatus.Active, UserStatus.Locked, UserStatus.Left };
 
             CollectionAssert.AreEquivalent(expected, actual);
         }
@@ -23,8 +18,8 @@ namespace ClassLibrary1
         [Test]
         public void CollectionEquals_ActualContainsLessElements()
         {
-            var expected = new[] { StatusWorker.Active, StatusWorker.Left, StatusWorker.Locked };
-            var actual = new[] { StatusWorker.Active, StatusWorker.Locked };
+            var expected = new[] { UserStatus.Active, UserStatus.Left, UserStatus.Locked };
+            var actual = new[] { UserStatus.Active, UserStatus.Locked };
 
             CollectionAssert.AreEquivalent(expected, actual, "Statuses weren't as expected");
         }
@@ -32,8 +27,8 @@ namespace ClassLibrary1
         [Test]
         public void CollectionEquals_ActualIsEmpty()
         {
-            var expected = new[] { StatusWorker.Active, StatusWorker.Left, StatusWorker.Locked };
-            var actual = new StatusWorker[] { };
+            var expected = new[] { UserStatus.Active, UserStatus.Left, UserStatus.Locked };
+            var actual = new UserStatus[] { };
 
             CollectionAssert.AreEquivalent(expected, actual);
         }
@@ -41,8 +36,8 @@ namespace ClassLibrary1
         [Test]
         public void CollectionEquals_ActualContainsElementsNotExistingInExpectedCollection()
         {
-            var expected = new[] { StatusWorker.Active, StatusWorker.Left, StatusWorker.Locked };
-            var actual = new StatusWorker[] { StatusWorker.Suspended, StatusWorker.Confirmed, StatusWorker.Locked };
+            var expected = new[] { UserStatus.Active, UserStatus.Left, UserStatus.Locked };
+            var actual = new UserStatus[] { UserStatus.Suspended, UserStatus.Confirmed, UserStatus.Locked };
 
             CollectionAssert.AreEquivalent(expected, actual);
         }
@@ -78,31 +73,5 @@ namespace ClassLibrary1
                 .Including(_ => _.Age)
             );
         }
-    }
-
-    public class User
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public Employer Employer { get; set; }
-        public decimal Money { get; set; }
-    }
-
-    public class Employer
-    {
-        public int Id { get; set; }
-        public string CompanyName { get; set; }
-    }
-
-    public enum StatusWorker
-    {
-        Zero = 255,
-        Imported = 1,
-        Invited = 2,
-        Confirmed = 4,
-        Active = 8,
-        Locked = 16,
-        Left = 32,
-        Suspended = 64
     }
 }
